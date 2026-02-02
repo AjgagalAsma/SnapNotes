@@ -1,0 +1,8 @@
+name: notes
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.10
+  - pytesseract
+prefix: C:\Users\21269\anaconda3\envs\notes

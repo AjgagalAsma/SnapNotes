@@ -1,0 +1,416 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <meta name="description" content="">
+        <meta name="author" content="">
+
+        <title>SnapNotes</title>
+
+        <!-- CSS FILES -->     
+        <link rel="icon" type="image/x-icon" href="{{ url_for('Home.static', filename='images/Icons/remarques.png')}}">   
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
+
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&family=Open+Sans&display=swap" rel="stylesheet">
+                        
+    <link rel="stylesheet" href="{{ url_for('Note.static', filename='css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('Note.static', filename='css/bootstrap-icons.css') }}">
+    <link rel="stylesheet" href="{{ url_for('Note.static', filename='css/templatemo-topic-listing.css') }}">
+<!--
+
+TemplateMo 590 topic listing
+
+https://templatemo.com/tm-590-topic-listing
+
+-->
+    </head>
+    
+    <body class="topics-listing-page" id="top">
+
+        <main>
+            <nav class="navbar navbar-expand-lg">
+                <div class="container">
+                    <a class="navbar-brand" href="/">
+                        <i class="bi-back"></i>
+                        <span>SnapNotes</span>
+                    </a>
+
+                    <div class="d-lg-none ms-auto me-4">
+                        <a href="#top" class="navbar-icon bi-person smoothscroll"></a>
+                    </div>
+    
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+    
+                    <div class="collapse navbar-collapse" id="navbarNav">
+                        <ul class="navbar-nav ms-lg-5 me-lg-auto">
+                            <li class="nav-item">
+                                <a class="nav-link click-scroll" href="/Note">Add Note</a>
+                            </li>
+                            
+
+                            <li class="nav-item">
+                                <a class="nav-link click-scroll" href="/Notes">My notes</a>
+                            </li>
+                            <!--
+                            <li class="nav-item">
+                                <a class="nav-link click-scroll" href="#section_3">How it works</a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link click-scroll" href="#section_4">FAQs</a>
+                            </li>
+                            -->
+                            <li class="nav-item">
+                                <a class="nav-link click-scroll" href="#section_5">Contact</a>
+                            </li>
+                        </ul>
+
+                        <ul class="navbar-nav ">
+                            <li class="nav-item">
+                                <a class="" href="/Login">
+                                    Logout&nbsp;
+                                    <i class="fas fa-sign-out-alt"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+
+
+            <section class="explore-section section-padding" id="section_1">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12 text-center">
+                            <br><br><br><br>
+                            <h3 class="mb-4 Service">Welcome <span style = "color: #13547a;font-weight: 700;">{{user_name}}  </span><img src="{{ url_for('Note.static', filename='images/hands.png') }}" style="width: 60px;"></img>These Your Saved Notes</h3>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!--<section class="section-padding section-bg">
+                <div class="container">
+                    <div class="row">
+                        
+                        {% for note in notes %}
+                        <div class="col-lg-6 col-md-6 col-12 mt-3 mb-4 mb-lg-0">
+
+                            <div class="custom-block bg-white shadow-lg p-3 d-flex flex-column">
+                                <div>
+                                    <span style = "color: #13547a;font-weight: 700; font-size: 20px; padding : 10px 0px;">{{note[6]}}  </span>
+                                </div>
+                                <a href="#" data-bs-toggle="modal" data-bs-target="#imageModal">
+                                    <img src="{{url_for('Note.static', filename='temp/' + note[2]) }}" class="img-fluid" alt="Full Image">
+
+                                </a>
+  
+                                <div>
+                                    <p class="mb-3 flex-grow: 1;" style = "font-weight: 700; color: black; padding: 10px 0px;">{{ note[1] }}</p>
+                                    
+                                </div>
+                        
+                                <div class=" justify-content-between align-items-center date d-flex" style=" margin-top:auto">
+                                    
+                                        
+                                    <div class="tags">
+                                        {% if note[5] %}
+                                            {% for tag in note[5].split(',') %}
+                                            <span style = "background-color: #13547a;font-weight: 700; font-size: 18px;" class ="badge  text-white me-1">{{tag}}  </span>
+                                            {% endfor %}
+                                        {% else %}
+                                            <span style = "background-color: #00BFA6 ;font-weight: 700; font-size: 18px;" class="badge bg-secondary text-white me-1">No tags</span>
+                                        {% endif %}
+                                    </div>
+                        
+                                    <div class="date text-muted">
+                                        <small>Created on: {{ note[3].strftime('%d %b %Y') }}</small>
+                                    </div>
+                        
+                                    <div class="user text-muted">
+                                        <small>Created by: {{ note[4] }}</small>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                        
+
+                        <div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
+                                    <div class="modal-body p-0">
+                                        <img src="{{url_for('Note.static', filename='temp/' + note[2]) }}" class="img-fluid" alt="Full Image">
+                                    </div>
+                                    <button type="button" class="btn-close position-absolute top-0 end-0 m-3" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                  
+                        
+                            
+
+
+
+
+                        <div class="col-lg-12 col-12">
+                            <nav aria-label="Page navigation example">
+                                <ul class="pagination justify-content-center mb-0">
+                                    <li class="page-item {% if page == 1 %}disabled{% endif %}">
+                                        <a class="page-link" href="{{ url_for('Notes.Notes', page=page-1) }}" aria-label="Previous">
+                                            <span aria-hidden="true">Prev</span>
+                                        </a>
+                                    </li>
+
+                                    {% for p in range(1, total_pages + 1) %}
+                                        <li class="page-item {% if p == page %}active{% endif %}">
+                                            <a class="page-link" href="{{ url_for('Notes.Notes', page=p) }}">{{ p }}</a>
+                                        </li>
+                                    {% endfor %}
+
+                                    <li class="page-item {% if page == total_pages %}disabled{% endif %}">
+                                        <a class="page-link" href="{{ url_for('Notes.Notes', page=page+1) }}" aria-label="Next">
+                                            <span aria-hidden="true">Next</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                       
+                                  
+
+                    </div>
+                </div>
+            </section>-->
+            <section class="section-padding section-bg">
+                <div class="container">
+                    <div class="row">
+
+                        <div class="col-lg-12 col-12">
+                            <h3 class="mb-4">My Notes Book</h3>
+                        </div>
+
+
+
+                        {% for note in notes %}
+                        <div class="col-lg-6 col-md-6 col-12 mt-3 mb-4 mb-lg-0">
+
+                            <div class="custom-block bg-white shadow-lg p-3">
+                                <div>
+                                    <span class="mb-3" style = "color: #13547a;font-weight: 700; font-size: 20px; padding : 10px 0px;">{{ note[6] }}</span>
+                                </div>
+                                <!-- Image en haut avec un lien pour ouvrir la modale -->
+                                <a href="#" data-bs-toggle="modal" data-bs-target="#imageModal">
+                                    <img src="{{url_for('Note.static', filename='temp/' + note[2]) }}" class="img-fluid" alt="Full Image">
+                                </a>
+  
+                                <!-- Texte de la note -->
+                                <div>
+                                    <p class="mb-3 flex-grow: 1;" style = "font-weight: 700; color: black; padding: 10px 0px;">{{ note[1] }}</p>
+                                    
+                                </div>
+                        
+                                <div class=" justify-content-between align-items-center date d-flex" style=" margin-top:auto">
+                                    <div class="tags">
+                                        {% if note[5] %}
+                                            {% for tag in note[5].split(',') %}
+                                            <span style = "background-color: #13547a;font-weight: 700; font-size: 18px;" class ="badge  text-white me-1">{{tag}}  </span>
+                                            {% endfor %}
+                                        {% else %}
+                                            <span style = "background-color: #00BFA6 ;font-weight: 700; font-size: 18px;" class="badge bg-secondary text-white me-1">No tags</span>
+                                        {% endif %}
+                                    </div>
+                        
+                                    <div class="date text-muted">
+                                        <small>Created on: {{ note[3].strftime('%d %b %Y') }}</small>
+                                    </div>
+                        
+                                    <div class="user text-muted">
+                                        <small>Created by: {{ note[4] }}</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Modale Bootstrap pour afficher l'image entière -->
+                        <div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
+                                    <div class="modal-body p-0">
+                                        <!-- Image affichée dans la modale -->
+                                        <img src="{{url_for('Note.static', filename='temp/' + note[2]) }}" class="img-fluid" alt="Full Image">
+                                    </div>
+                                    <!-- Bouton pour fermer la modale -->
+                                    <button type="button" class="btn-close position-absolute top-0 end-0 m-3" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+
+                        
+                  
+                        
+
+
+
+                    <!-- Pagination -->
+                    <div class="col-lg-12 col-12">
+                    <nav aria-label="Page navigation example">
+                        <ul class="pagination justify-content-center mb-0">
+                            <!-- Lien Précédent -->
+                            <li class="page-item {% if page == 1 %}disabled{% endif %}">
+                                <a class="page-link" href="{{ url_for('Notes.Notes', page=page-1) }}" aria-label="Previous">
+                                    <span aria-hidden="true">Prev</span>
+                                </a>
+                            </li>
+
+                            <!-- Afficher les numéros de pages -->
+                            {% for p in range(1, total_pages + 1) %}
+                                <li class="page-item {% if p == page %}active{% endif %}">
+                                    <a class="page-link" href="{{ url_for('Notes.Notes', page=p) }}">{{ p }}</a>
+                                </li>
+                            {% endfor %}
+
+                            <!-- Lien Suivant -->
+                            <li class="page-item {% if page == total_pages %}disabled{% endif %}">
+                                <a class="page-link" href="{{ url_for('Notes.Notes', page=page+1) }}" aria-label="Next">
+                                    <span aria-hidden="true">Next</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                    </div>
+                    </div>
+                </div>
+            </section>
+            <section class="contact-section section-padding section-bg" id="section_5">
+                <div class="container">
+                    <div class="row">
+
+                        <div class="col-lg-12 col-12 text-center">
+                            <h2 class="mb-5">Get in touch</h2>
+                        </div>
+
+                        <div class="col-lg-5 col-12 mb-4 mb-lg-0">
+                            <iframe class="google-map" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2595.065641062665!2d-122.4230416990949!3d37.80335401520422!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80858127459fabad%3A0x808ba520e5e9edb7!2sFrancisco%20Park!5e1!3m2!1sen!2sth!4v1684340239744!5m2!1sen!2sth" width="100%" height="250" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                        </div>
+
+                        <div class="col-lg-6 col-md-6 col-12 mx-auto">
+                            <h4 class="mb-3">Ensas</h4>
+
+                            <p>Route Sidi Bouzid BP 63 Rue Sidi M'Barek, Safi 46000</p>
+
+                            <hr>
+
+                            <p class="d-flex align-items-center mb-1">
+                                <span class="me-2">Phone</span>
+
+                                <a href="tel: +212 688062914" class="site-footer-link">
+                                    +212 688062914
+                                </a>
+                            </p>
+
+                            <p class="d-flex align-items-center">
+                                <span class="me-2">Email</span>
+
+                                <a href="mailto:info@company.com" class="site-footer-link">
+                                    snapnotes@company.com
+                                </a>
+                            </p>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer class="site-footer section-padding">
+            <div class="container">
+                <div class="row">
+      
+                    <div class="col-lg-4 col-12 mb-4 pb-2">
+                        <a class="navbar-brand mb-2" href="index.html">
+                            <i class="bi-back"></i>
+                            <span>SnapNotes</span>
+                        </a>
+                    </div>
+      
+                    <div class="col-lg-4 col-md-4 col-6">
+                        <h6 class="site-footer-title mb-3">Resources</h6>
+      
+                        <ul class="site-footer-links">
+                            <li class="site-footer-link-item">
+                                <a href="#" class="site-footer-link">Home</a>
+                            </li>
+      
+                            <li class="site-footer-link-item">
+                                <a href="#" class="site-footer-link">How it works</a>
+                            </li>
+      
+                            <li class="site-footer-link-item">
+                                <a href="#" class="site-footer-link">FAQs</a>
+                            </li>
+      
+                            <li class="site-footer-link-item">
+                                <a href="#" class="site-footer-link">Contact</a>
+                            </li>
+                        </ul>
+                    </div>
+      
+                    <div class="col-lg-4 col-md-4 col-6 mb-4 mb-lg-0">
+                        <h6 class="site-footer-title mb-3">Information</h6>
+      
+                        <p class="text-white d-flex mb-1">
+                            <a href="tel: +212 688062914" class="site-footer-link">
+                                +212 688062914
+                            </a>
+                        </p>
+      
+                        <p class="text-white d-flex">
+                            <a href="mailto:info@company.com" class="site-footer-link">
+                                snapnotes@company.com
+                            </a>
+                        </p>
+                    </div>
+      
+                    <div class="col-lg-3 col-md-4 col-12 mt-4 mt-lg-0 ms-auto">
+                        
+      
+                        
+                    </div>
+      
+                </div>
+            </div>
+        </footer>
+
+        <!-- JAVASCRIPT FILES -->
+        <script src="{{ url_for('Notes.static', filename='js/jquery.min.js') }}"></script>
+        <script src="{{ url_for('Notes.static', filename='js/bootstrap.bundle.min.js') }}"></script>
+        <script src="{{ url_for('Notes.static', filename='js/jquery.sticky.js') }}"></script>
+        <script src="{{ url_for('Notes.static', filename='js/click-scroll.js') }}"></script>
+        <script src="{{ url_for('Notes.static', filename='js/custom.js') }}"></script>
+        
+    </body>
+</html>
